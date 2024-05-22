@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-boot-postgres-sample
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: spring-boot-postgres-sample
+      labels:
+        app: webapp
+    spec:
+      containers:
+      - name: spring-boot-postgres-sample
+        env:
+          - name: POSTGRES_HOST_AUTH_METHOD
+            value: trust
+          - name: DB_USER
+            valueFrom:
+              configMapKeyRef:
+                name: postgres-config
+                key: db_user
+          - name: DB_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                name: postgres-config
+                key: db_password
+          - name: DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: postgres-config
+                key: db_host
+          - name: DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: postgres-config
+                key: db_name
+        image: elllliif/java-app:latest
+  selector:
+    matchLabels:
+      app: webapp
