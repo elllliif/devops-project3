@@ -48,6 +48,31 @@ pipeline {
             }
         }
     }
+    stages {
+            stage('Apply PostgreSQL YAML') {
+                steps {
+                    script {
+                        def applied = kubernetesApply(yaml: 'postgres.yml')
+                        if (applied) {
+                            echo 'PostgreSQL YAML applied successfully'
+                        } else {
+                            error 'Failed to apply PostgreSQL YAML'
+                        }
+                    }
+                }
+            }
+            stage('Apply Spring Boot App YAML') {
+                steps {
+                    script {
+                        def applied = kubernetesApply(yaml: 'spring-boot-app.yml')
+                        if (applied) {
+                            echo 'Spring Boot App YAML applied successfully'
+                        } else {
+                            error 'Failed to apply Spring Boot App YAML'
+                        }
+                    }
+                }
+            }
 
     post {
         success {
