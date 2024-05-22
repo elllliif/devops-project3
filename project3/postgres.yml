@@ -6,7 +6,7 @@ metadata:
 data:
   db_user: "postgres"
   db_password: "Elif2001."
-  db_host: "10.244.0.5"
+  db_host: "127.0.0.1"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
