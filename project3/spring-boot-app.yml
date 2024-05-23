@@ -49,3 +49,6 @@ spec:
       targetPort: 8088
       nodePort: 32140
       protocol: TCP
+
+
+
